@@ -1,21 +1,37 @@
 import{ Sequelize } from 'sequelize-typescript';
-import { User } from '../models/user.model';
+import User from '../models/user.model';
+import Language from '../models/language.model';
+import env from 'dotenv';
 
-//Precisa colocar os dados no .env!!!!!
-//Database connection
-//const database: string = process.env.DB_NAME;
-//const username: string = process.env.DB_USER;
-//const password: string = process.env.DB_PASSWORD;
+//dotenv config
+env.config();
+
+//Get .env data
+//global.d.ts config these types
+const database: string = process.env.DB_DATABASE;
+const host: string = process.env.DB_HOST;
+const password: string = process.env.DB_PASSWORD;
+const user: string = process.env.DB_USER;
+
+
+const models = [User, Language];
 
 const connection = new Sequelize({
-    database: 'wetalk',
+    database: database,
     dialect: 'mysql',
-    host: 'localhost',
+    host: host,
     logging: false,
-    models:[User],
-    password: '',
-    username: ''
-    
+    models: models,
+    password: password,
+    username: user
 })
+
+//Associations
+Language.belongsToMany(User, { through: 'learn' });
+Language.belongsToMany(User, { through: 'speak' });
+
+//Follow e Chat na mesma tabela
+//User.belongsToMany(User, { through: 'chat' });
+//User.hasMany()
 
 export default connection;

@@ -1,16 +1,11 @@
 import express from 'express';
 import connection from './app/config/db.config';
+import UserRoutes from './app/routes/user.routes';
 
 //express config
 const app = express();
-app.use((
-    err: Error,
-    req: express.Request,
-    res: express.Response,
-    next: express.NextFunction
-) => {
-    res.status(500).json({message: err.message});
-});
+app.use(express.json());
+app.use(express.urlencoded({ extended: true })); 
 
 //.env configs
 const dotenv = require('dotenv');
@@ -23,5 +18,11 @@ connection.sync().then(() => {
     console.error(err);
 })
 
+//routes config
+app.use('/user', UserRoutes);
 
+const PORT = process.env.PORT;
+app.listen(PORT, () => {
+    console.log(`listening on http://locoalhost:${PORT}/`);
+});
 
