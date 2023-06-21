@@ -9,5 +9,3 @@ export default class Language extends Model{
     @Column({type: DataType.STRING, allowNull: false})
     language!: string;
 }
-
-

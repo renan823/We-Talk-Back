@@ -6,7 +6,7 @@ export default class User extends Model{
     @Column({type: DataType.INTEGER, allowNull: false, primaryKey: true, autoIncrement: true})
     id!: -1;
 
-    @Column({type: DataType.STRING, allowNull: false})
+    @Column({type: DataType.STRING, allowNull: false, unique: true})
     name!: string;
 
     @Column({type: DataType.STRING, allowNull: false})
