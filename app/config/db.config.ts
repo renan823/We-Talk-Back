@@ -1,8 +1,13 @@
 import{ Sequelize } from 'sequelize-typescript';
+
+//models
 import User from '../models/user.model';
 import Language from '../models/language.model';
 import Message from '../models/message.models';
 import Chat from '../models/chat.model';
+import Learn from '../models/learn.model';
+import Speak from '../models/spaek.model';
+
 import env from 'dotenv';
 
 //dotenv config
@@ -15,7 +20,7 @@ const host: string = process.env.DB_HOST;
 const password: string = process.env.DB_PASSWORD;
 const user: string = process.env.DB_USER;
 
-const models = [User, Language, Chat, Message];
+const models = [User, Language, Chat, Message, Learn, Speak];
 
 const connection = new Sequelize({
     database: database,
@@ -28,11 +33,12 @@ const connection = new Sequelize({
 })
 
 //Associations
-Language.belongsToMany(User, { through: 'learn' });
-Language.belongsToMany(User, { through: 'speak' });
+Language.belongsToMany(User, { through: Learn });
+Language.belongsToMany(User, { through: Speak });
 
 //Follow e Chat na mesma tabela
 User.belongsToMany(User, { through: Chat, as: 'otherUser'});
-Message.belongsToMany(Chat, { through: 'send', as: 'chatID' });
+Chat.hasMany(Message);
+Message.belongsTo(Chat);
 
 export default connection;
