@@ -1,7 +1,6 @@
 import express from 'express';
 import connection from './app/config/db.config';
 import UserRoutes from './app/routes/user.routes';
-import populate from './app/seed/populate';
 
 
 //express config
@@ -16,10 +15,6 @@ dotenv.config();
 //DB connection
 connection.sync().then(() => {
     console.log("DB connected");
-
-    //Isso é um teste!!!
-    populate();
-    
 }).catch((err) => {
     console.error(err);
 })

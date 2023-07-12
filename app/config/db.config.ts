@@ -6,7 +6,7 @@ import Language from '../models/language.model';
 import Message from '../models/message.models';
 import Chat from '../models/chat.model';
 import Learn from '../models/learn.model';
-import Speak from '../models/spaek.model';
+import Speak from '../models/speak.model';
 
 import env from 'dotenv';
 

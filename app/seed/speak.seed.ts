@@ -1,4 +1,4 @@
-import Speak from "../models/spaek.model";
+import Speak from "../models/speak.model";
 
 const speaks = [
     {
